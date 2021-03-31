@@ -10,25 +10,30 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
   ]
   
-  const points = new Array(anecdotes.length).fill(0)
+  const [points, incrementPoints] = useState(new Array(anecdotes.length).fill(0))
 
 
 
   const [selected, setSelected] = useState(0)
 
-  const randomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min
+  const incrementSelected = () => {
+    if(selected + 1 < anecdotes.length)
+      setSelected(selected + 1)
+    else
+      setSelected(0)
   }
 
-  const changetateToRandom = () => {
-    setSelected(randomInt(0, anecdotes.length -1))
+  const vote = (index) => {
+    incrementPoints(points[index]+1)
   }
 
   console.log( "state is: ", selected)
   return (
     <div>
       <p> {anecdotes[selected]} </p>
-      <button onClick={changetateToRandom}> next anecdote </button>
+      <p> has {points[selected]} votes</p>
+      <button onClick={() => vote(selected)}> votes </button>
+      <button onClick={incrementSelected}> next anecdote </button>
     </div>
   )
 }
