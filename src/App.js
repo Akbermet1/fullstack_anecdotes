@@ -10,7 +10,7 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
   ]
   
-  const [points, incrementPoints] = useState(new Array(anecdotes.length).fill(0))
+  const [points, setPoints] = useState(new Array(anecdotes.length).fill(0))
 
 
 
@@ -24,10 +24,14 @@ const App = () => {
   }
 
   const vote = (index) => {
-    incrementPoints(points[index]+1)
+    console.log("points before updating ", points)
+    const newPoints = [...points]
+    newPoints[index] += 1
+    console.log("new points = ", newPoints)
+    setPoints(newPoints)
+    console.log("points after updating: ", points)
   }
 
-  console.log( "state is: ", selected)
   return (
     <div>
       <p> {anecdotes[selected]} </p>
